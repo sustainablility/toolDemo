@@ -4,3 +4,6 @@
 [submodule "LuChen-project"]
 	path = LuChenProject
 	url = https://github.com/sustainablility/LuChen-project.git
+[submodule "LuChenProject"]
+	path = LuChenProject
+	url = https://github.com/sustainablility/LuChenProject.git
