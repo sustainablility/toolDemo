@@ -2,7 +2,7 @@ from flask import Flask, escape, request, make_response
 from flask_cors import CORS
 import json
 import requests
-import main
+import tw
 import main_clean
 import main_tokenize
 

@@ -76,6 +76,6 @@ def main(twtInfo:object):
         ret[i]["id"] = data_id[i]
     return pd.Series(ret).to_json(orient="records")
 
-dat = main("test.json")
-with open("test_clean_out.json", "w+") as out:
-    out.write(dat)
+#dat = main("test.json")
+#with open("test_clean_out.json", "w+") as out:
+#    out.write(dat)
