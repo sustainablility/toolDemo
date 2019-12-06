@@ -4,6 +4,9 @@ import json
 import requests
 
 from LuChenProject import workflow
+
+from hidden_link_calculate import constructR
+from hidden_link_calculate import matchingPersuit
 from hidden_link_calculate import main
 
 from twitter import tw
@@ -56,8 +59,10 @@ def hello():
     return response
 
 @app.route('/jiaxin', methods= ["GET","POST"])
-def hi():
+def jaixin():
     if(request.method == "POST"):
+
+
         bodyData = request.get_json()
         dataForTool = []
         for data in bodyData[1:]:
@@ -67,20 +72,48 @@ def hi():
             else:
                 dataForTool.append(data)
 
-        outputT = open("test.json","w")
-        outputT.write(main.main(json.dumps(dataForTool[0]),json.dumps(dataForTool[1])))
-        result = json.loads(main.main(json.dumps(dataForTool[0]),json.dumps(dataForTool[1])))
-        resultDataId = requests.post("https://cache.rrworkflow.com/putData", json=result).text
-        resultSend = json.dumps(["https://cache.rrworkflow.com/getData?" + resultDataId])
-        response = make_response(resultSend)
+        if bodyData[0] == "Main":
+
+
+            result = json.loads(main.main(json.dumps(dataForTool[0]),json.dumps(dataForTool[1])))
+            resultDataId = requests.post("https://cache.rrworkflow.com/putData", json=result).text
+            resultSend = json.dumps(["https://cache.rrworkflow.com/getData?" + resultDataId])
+            response = make_response(resultSend)
+
+        elif bodyData[0] == "parallel_r_main":
+
+            result = json.loads(constructR.parallel_r_main(json.dumps(dataForTool[0])))
+            resultDataId = requests.post("https://cache.rrworkflow.com/putData", json=result).text
+            resultSend = json.dumps(["https://cache.rrworkflow.com/getData?" + resultDataId])
+            response = make_response(resultSend)
+
+        elif bodyData[0] == "parallel_minimizer":
+
+            result = json.loads(matchingPersuit.parallel_minimizer(json.dumps(dataForTool[0])))
+            resultDataId = requests.post("https://cache.rrworkflow.com/putData", json=result).text
+            resultSend = json.dumps(["https://cache.rrworkflow.com/getData?" + resultDataId])
+            response = make_response(resultSend)
+
+
+
     elif(request.method == "GET"):
         apiInfo = {
         "name": "Hidden",
         "desc": "Hidden Link Calculate",
         "methods": [
             {
-                "name": "Analysis",
+                "name": "Main",
                 "parameter": ["UserInfo","DiffusionInfo"],
+                "output": ["Result"]
+            },
+            {
+                "name": "parallel_r_main",
+                "parameter": ["Data"],
+                "output": ["Result"]
+            },
+            {
+                "name": "parallel_minimizer",
+                "parameter": ["Data"],
                 "output": ["Result"]
             }
         ]
