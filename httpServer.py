@@ -18,6 +18,7 @@ CORS(app, resources=r'/*')
 
 @app.route('/luchen', methods= ["GET","POST"])
 def hello():
+    response = None
     if(request.method == "POST"):
 
 
@@ -59,7 +60,8 @@ def hello():
     return response
 
 @app.route('/jiaxin', methods= ["GET","POST"])
-def jaixin():
+def hi():
+    response = None
     if(request.method == "POST"):
 
 
@@ -127,6 +129,7 @@ def jaixin():
 
 @app.route('/matt', methods= ["GET","POST"])
 def matt():
+    response = None
     if(request.method == "POST"):
 
 
