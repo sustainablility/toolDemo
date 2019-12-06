@@ -2,5 +2,5 @@
 	path = hidden_link_calculate
 	url = https://github.com/sustainablility/hidden_link_calculate.git
 [submodule "LuChen-project"]
-	path = LuChen-project
+	path = LuChenProject
 	url = https://github.com/sustainablility/LuChen-project.git
